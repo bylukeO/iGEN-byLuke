@@ -3,10 +3,14 @@ import useFetchData from "@/hooks/useFetchData";
 import { ImageProps } from "@/interfaces";
 import React, { useEffect, useState } from "react";
 
+interface ApiResponse {
+  message: string;
+}
+
 const Home: React.FC = () => {
   const [prompt, setPrompt] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
-  const { isLoading, responseData, generatedImages, fetchData } = useFetchData<any, { prompt: string}>();
+  const { isLoading, responseData, generatedImages, fetchData } = useFetchData<ApiResponse, { prompt: string}>();
 
   const handleGenerateImage =  () => {
     fetchData('/api/generate-image', { prompt })
@@ -14,11 +18,11 @@ const Home: React.FC = () => {
 
 
   useEffect(() => {
-    if (!isLoading) {
-      setImageUrl(responseData?.message)
-    }
-  }, [isLoading])
-
+  if (!isLoading && responseData?.message) {
+    setImageUrl(responseData.message)
+  }
+}, [isLoading, responseData?.message])
+  
 
 
   return (

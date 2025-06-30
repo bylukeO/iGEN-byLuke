@@ -18,8 +18,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       method: "POST",
       body: JSON.stringify({
         text: prompt,
-        width: 512,
-        height: 512,
+        width: WIDTH,
+        height: HEIGHT,
         steps: 1, // required for this endpoint
       }),
       headers: {
@@ -38,10 +38,13 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     return response.status(200).json({
       message: data?.generated_image || "https://via.placeholder.com/600x400?text=Generated+Image",
     });
-  } catch (error: any) {
-    console.error("Error in API route:", error.message, error);
-    return response.status(500).json({ error: error.message || "Internal server error" });
-  }
+  } catch (error: unknown) {
+  const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+  console.error("Error in API route:", errorMessage, error);
+  return response.status(500).json({ 
+    error: errorMessage || "Internal server error" 
+  });
+}
 }
 
 export default handler

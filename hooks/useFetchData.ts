@@ -1,3 +1,4 @@
+// hooks/useFetchData.ts
 import { ImageProps } from "@/interfaces";
 import { useState } from "react";
 
@@ -19,15 +20,29 @@ const useFetchData = <T, R extends { prompt: string }>() => {
         }
       });
 
-      if (!resp.ok)
-      {
+      if (!resp.ok) {
         throw new Error('Failed to fetch data');
       }
 
       const result = await resp.json()
       setResponseData(result)
-      setGeneratedImages((prev) => [...prev, { imageUrl: result?.message, prompt: body?.prompt }])
-        } catch (err) {
+      
+      // Create new image object
+      const newImage: ImageProps = { 
+        imageUrl: result?.message, 
+        prompt: body?.prompt 
+      };
+      
+      // Update state
+      setGeneratedImages((prev) => [...prev, newImage]);
+      
+      // Save to localStorage
+      const existingImages = localStorage.getItem('generatedImages');
+      const currentImages: ImageProps[] = existingImages ? JSON.parse(existingImages) : [];
+      const updatedImages = [...currentImages, newImage];
+      localStorage.setItem('generatedImages', JSON.stringify(updatedImages));
+      
+    } catch (err) {
       setError((err as Error).message)
     } finally {
       setIsLoading(false)
@@ -42,6 +57,5 @@ const useFetchData = <T, R extends { prompt: string }>() => {
     generatedImages
   }
 }
-
 
 export default useFetchData;
