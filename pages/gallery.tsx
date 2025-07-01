@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import ImageCard from '@/components/common/ImageCard';
 import { ImageProps } from '@/interfaces';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const Gallery: React.FC = () => {
   const [images, setImages] = useState<ImageProps[]>([]);
@@ -141,19 +143,19 @@ const Gallery: React.FC = () => {
             <p className="text-gray-500 mb-6">
               Start generating some amazing images to see them here!
             </p>
-            <a
+            <Link
               href="/"
               className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
             >
               Generate Your First Image
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🔍</div>
             <h2 className="text-2xl font-semibold text-gray-600 mb-2">No Results Found</h2>
             <p className="text-gray-500">
-              Try adjusting your search term to find what you're looking for.
+              Try adjusting your search term to find what you&apos;re looking for.
             </p>
           </div>
         )}
@@ -171,30 +173,30 @@ const Gallery: React.FC = () => {
                   ×
                 </button>
               </div>
-              <div className="p-4">
-                <img
-                  src={selectedImage}
-                  alt={selectedPrompt}
-                  className="w-full h-auto max-h-96 object-contain rounded-lg"
-                />
-                <div className="mt-4">
-                  <h4 className="font-semibold text-gray-800 mb-2">Prompt:</h4>
-                  <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">{selectedPrompt}</p>
-                </div>
-                <div className="flex gap-2 mt-4">
-                  <button
-                    onClick={() => downloadImage(selectedImage, selectedPrompt)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
-                  >
-                    Download Image
-                  </button>
-                  <button
-                    onClick={closeModal}
-                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition duration-200"
-                  >
-                    Close
-                  </button>
-                </div>
+              <Image
+                src={selectedImage}
+                alt={selectedPrompt}
+                width={800}
+                height={600}
+                className="w-full h-auto max-h-96 object-contain rounded-lg"
+              />
+              <div className="mt-4">
+                <h4 className="font-semibold text-gray-800 mb-2">Prompt:</h4>
+                <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">{selectedPrompt}</p>
+              </div>
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={() => downloadImage(selectedImage, selectedPrompt)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+                >
+                  Download Image
+                </button>
+                <button
+                  onClick={closeModal}
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition duration-200"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>

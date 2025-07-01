@@ -114,7 +114,14 @@ const About: React.FC = () => {
     }
   ];
 
-  const TabButton = ({ id, label, isActive, onClick }: any) => (
+  interface TabButtonProps {
+    id: string;
+    label: string;
+    isActive: boolean;
+    onClick: (id: string) => void;
+  }
+
+  const TabButton = ({ id, label, isActive, onClick }: TabButtonProps) => (
     <button
       onClick={() => onClick(id)}
       className={`px-6 py-3 rounded-lg font-medium transition duration-200 ${
@@ -147,19 +154,19 @@ const About: React.FC = () => {
             id="overview"
             label="Overview"
             isActive={activeTab === 'overview'}
-            onClick={setActiveTab}
+            onClick={(id) => setActiveTab(id as 'overview' | 'howto' | 'pricing')}
           />
           <TabButton
             id="howto"
             label="How to Use"
             isActive={activeTab === 'howto'}
-            onClick={setActiveTab}
+            onClick={(id) => setActiveTab(id as 'overview' | 'howto' | 'pricing')}
           />
           <TabButton
             id="pricing"
             label="Pricing"
             isActive={activeTab === 'pricing'}
-            onClick={setActiveTab}
+            onClick={(id) => setActiveTab(id as 'overview' | 'howto' | 'pricing')}
           />
         </div>
 
@@ -254,7 +261,7 @@ const About: React.FC = () => {
                   <h4 className="font-semibold text-gray-800 mb-2">✅ Do:</h4>
                   <ul className="text-gray-600 space-y-2">
                     <li>• Be specific with details</li>
-                    <li>• Include style references (e.g., "photorealistic", "cartoon")</li>
+                    <li>• Include style references (e.g., &quot; photorealistic &quot;, &quot; cartoon &quot;)</li>
                     <li>• Mention lighting and mood</li>
                     <li>• Specify colors if important</li>
                   </ul>

@@ -28,7 +28,7 @@ const Contact: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -92,8 +92,8 @@ const Contact: React.FC = () => {
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-4">Get in Touch</h1>
           <p className="text-xl max-w-3xl mx-auto leading-relaxed">
-            Have questions, feedback, or just want to say hello? I'd love to hear from you! 
-            I'm always excited to connect with fellow creators and developers.
+            Have questions, feedback, or just want to say hello? I&apos;d love to hear from you! 
+            I&apos;m always excited to connect with fellow creators and developers.
           </p>
         </div>
       </div>
@@ -106,7 +106,7 @@ const Contact: React.FC = () => {
             
             {submitStatus === 'success' && (
               <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                Thank you for your message! I'll get back to you as soon as possible.
+                Thank you for your message! I&apos;ll get back to you as soon as possible.
               </div>
             )}
             

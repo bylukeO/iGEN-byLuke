@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
-  const gptApiKey = process.env.NEXT_PUBLIC_GPT_API_KEY;
+  const gptApiKey = process.env.GPT_API_KEY;
   const gptUrl = "https://chatgpt-42.p.rapidapi.com/texttoimage3";
 
   if (!gptApiKey || !gptUrl) {
