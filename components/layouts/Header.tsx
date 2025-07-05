@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
   return (
@@ -7,8 +8,10 @@ const Header: React.FC = () => {
         <div className="flex items-center">
           <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
             {/* Replace this span with an <img> or <Image /> when you have a logo */}
-            <img
+            <Image
               className="w-10 h-10 rounded-full" src="/favicon.jpg" alt="Logo"
+              width={40}
+              height={40}
             />
 
           </div>
