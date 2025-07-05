@@ -5,7 +5,14 @@ const Header: React.FC = () => {
     <header className="bg-gray-800 text-white py-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <h1 className="text-2xl font-bold">IGen made byLUKE</h1>
+          <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+            {/* Replace this span with an <img> or <Image /> when you have a logo */}
+            <img
+              className="w-10 h-10 rounded-full" src="/favicon.jpg" alt="Logo"
+            />
+
+          </div>
+          <h1 className="text-2xl font-bold text-white">iGEN</h1>
         </div>
         <nav className="space-x-4">
           <Link href="/" className="hover:text-gray-400">Home</Link>

@@ -1,5 +1,4 @@
-// pages/contact.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -19,17 +18,28 @@ const Contact: React.FC = () => {
     }));
   };
 
+  const GOOGLE_SCRIPT_URL = "/api/contact";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setSubmitStatus("error");
+      }
     } catch {
-      setSubmitStatus('error');
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -39,26 +49,30 @@ const Contact: React.FC = () => {
     {
       icon: '📧',
       title: 'Email',
-      value: 'luke@igen.dev',
-      description: 'Send me an email for any inquiries or support'
+      value: 'bylukeO@gmail.com',
+      description: 'Send me an email for any inquiries or support',
+      link: 'mailto:bylukeo@gmail.com'
     },
     {
       icon: '💼',
       title: 'LinkedIn',
-      value: '/in/luke-developer',
-      description: 'Connect with me on LinkedIn for professional networking'
+      value: '/in/Luke Oladejo',
+      description: 'Connect with me on LinkedIn for professional networking',
+      link: 'https://www.linkedin.com/in/luke-oladejo-487b6625b/'
     },
     {
       icon: '🐙',
       title: 'GitHub',
-      value: '@luke-dev',
-      description: 'Check out my other projects and contributions'
+      value: '@bylukeO',
+      description: 'Check out my other projects and contributions on Github',
+      link: 'https://github.com/bylukeO'
     },
     {
-      icon: '🐦',
+      icon: '𝕏',
       title: 'Twitter',
-      value: '@luke_codes',
-      description: 'Follow me for updates and tech insights'
+      value: '@byluke_O',
+      description: 'Follow me for updates and tech insights on Twitter',
+      link: 'https://twitter.com/byluke_O'
     }
   ];
 
@@ -81,9 +95,18 @@ const Contact: React.FC = () => {
     {
       icon: '🤝',
       title: 'Business Inquiries',
-      description: 'Interested in collaboration or custom work?'
+      description: 'Interested in collaboration or custom work? Just fill out the form and I\'ll get back to you! Open to work!'
     }
   ];
+
+  useEffect(() => {
+    if (submitStatus !== 'idle') {
+      const timer = setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 60000); // 60 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -93,7 +116,7 @@ const Contact: React.FC = () => {
           <h1 className="text-5xl font-bold mb-4">Get in Touch</h1>
           <p className="text-xl max-w-3xl mx-auto leading-relaxed">
             Have questions, feedback, or just want to say hello? I&apos;d love to hear from you! 
-            I&apos;m always excited to connect with fellow creators and developers.
+            I&apos;m always excited to connect with fellow creators and developers, and great humans like you!
           </p>
         </div>
       </div>
@@ -112,18 +135,18 @@ const Contact: React.FC = () => {
             
             {submitStatus === 'error' && (
               <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                Oops! Something went wrong. Please try again or contact me directly via email.
+                Oops! Something went wrong. Please try again or contact me directly via email or reach out to me through direct messages on any of my socials.
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
+                  <label className="block text-gray-800 font-semibold mb-2" htmlFor="name">
                     Name
-                  </label> 08138804300z
+                  </label>
                   <input
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-400 text-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     type="text"
                     id="name"
                     name="name"
@@ -133,11 +156,11 @@ const Contact: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
+                  <label className="block text-gray-800 font-semibold mb-2" htmlFor="email">
                     Email
                   </label>
                   <input
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-400 text-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     type="email"
                     id="email"
                     name="email"
@@ -148,11 +171,11 @@ const Contact: React.FC = () => {
                 </div>
               </div>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2" htmlFor="subject">
+                <label className="block text-gray-800 font-semibold mb-2" htmlFor="subject">
                   Subject
                 </label>
                 <input
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-400 text-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="text"
                   id="subject"
                   name="subject"
@@ -162,11 +185,11 @@ const Contact: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2" htmlFor="message">
+                <label className="block text-gray-800 font-semibold mb-2" htmlFor="message">
                   Message
                 </label>
                 <textarea
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-400 text-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   id="message"
                   name="message"
                   rows={5}
@@ -194,11 +217,24 @@ const Contact: React.FC = () => {
                 {contactMethods.map((method, index) => (
                   <div key={index} className="bg-white rounded-lg shadow-lg p-6 flex items-start">
                     <div className="text-3xl mr-4">
-                      {method.icon}
+                      {method.title === 'Twitter' ? (
+                        <span className="text-black">𝕏</span>
+                      ) : (
+                        method.icon
+                      )}
                     </div>
                     <div>
                       <h3 className="text-xl font-semibold text-gray-800">{method.title}</h3>
-                      <p className="text-gray-600">{method.value}</p>
+                      <p className="text-gray-600">
+                        <a
+                          href={method.link}
+                          className="text-blue-600 underline hover:text-blue-800"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {method.value}
+                        </a>
+                      </p>
                       <p className="text-gray-500 text-sm">{method.description}</p>
                     </div>
                   </div>

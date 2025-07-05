@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 const About: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'howto' | 'pricing'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'howto'>('overview');
 
   const features = [
     {
@@ -64,56 +64,6 @@ const About: React.FC = () => {
     }
   ];
 
-  const pricingPlans = [
-    {
-      name: 'Free',
-      price: '$0',
-      period: 'forever',
-      features: [
-        '10 image generations per day',
-        'Standard resolution (512x512)',
-        'Basic image gallery',
-        'Download images',
-        'Community support'
-      ],
-      popular: false,
-      buttonText: 'Get Started',
-      buttonClass: 'bg-gray-600 hover:bg-gray-700'
-    },
-    {
-      name: 'Pro',
-      price: '$9.99',
-      period: 'per month',
-      features: [
-        'Unlimited image generations',
-        'High resolution (1024x1024)',
-        'Advanced gallery features',
-        'Priority processing',
-        'Email support',
-        'Custom style presets'
-      ],
-      popular: true,
-      buttonText: 'Upgrade to Pro',
-      buttonClass: 'bg-blue-600 hover:bg-blue-700'
-    },
-    {
-      name: 'Enterprise',
-      price: '$49.99',
-      period: 'per month',
-      features: [
-        'Everything in Pro',
-        'API access',
-        'Custom model training',
-        'Bulk generation',
-        'Dedicated support',
-        'Commercial license'
-      ],
-      popular: false,
-      buttonText: 'Contact Sales',
-      buttonClass: 'bg-purple-600 hover:bg-purple-700'
-    }
-  ];
-
   interface TabButtonProps {
     id: string;
     label: string;
@@ -154,19 +104,13 @@ const About: React.FC = () => {
             id="overview"
             label="Overview"
             isActive={activeTab === 'overview'}
-            onClick={(id) => setActiveTab(id as 'overview' | 'howto' | 'pricing')}
+            onClick={(id) => setActiveTab(id as 'overview' | 'howto')}
           />
           <TabButton
             id="howto"
             label="How to Use"
             isActive={activeTab === 'howto'}
-            onClick={(id) => setActiveTab(id as 'overview' | 'howto' | 'pricing')}
-          />
-          <TabButton
-            id="pricing"
-            label="Pricing"
-            isActive={activeTab === 'pricing'}
-            onClick={(id) => setActiveTab(id as 'overview' | 'howto' | 'pricing')}
+            onClick={(id) => setActiveTab(id as 'overview' | 'howto')}
           />
         </div>
 
@@ -203,11 +147,11 @@ const About: React.FC = () => {
                 <h2 className="text-3xl font-bold mb-12">IGen by the Numbers</h2>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                   <div>
-                    <div className="text-4xl font-bold mb-2">1M+</div>
+                    <div className="text-4xl font-bold mb-2">100+</div>
                     <div className="text-lg">Images Generated</div>
                   </div>
                   <div>
-                    <div className="text-4xl font-bold mb-2">50K+</div>
+                    <div className="text-4xl font-bold mb-2">10+</div>
                     <div className="text-lg">Happy Users</div>
                   </div>
                   <div>
@@ -274,76 +218,6 @@ const About: React.FC = () => {
                     <li>• Too many subjects in one image</li>
                     <li>• Negative language</li>
                   </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Pricing Tab */}
-        {activeTab === 'pricing' && (
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Choose Your Plan</h2>
-              <p className="text-lg text-gray-600">
-                Start free and upgrade as your needs grow. All plans include our core features.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {pricingPlans.map((plan, index) => (
-                <div
-                  key={index}
-                  className={`bg-white rounded-lg shadow-lg p-8 relative ${
-                    plan.popular ? 'border-2 border-blue-500 transform scale-105' : ''
-                  }`}
-                >
-                  {plan.popular && (
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
-                    </div>
-                  )}
-                  <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-gray-800 mb-2">{plan.name}</h3>
-                    <div className="text-4xl font-bold text-gray-800 mb-1">{plan.price}</div>
-                    <div className="text-gray-600">{plan.period}</div>
-                  </div>
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-gray-600">
-                        <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <button className={`w-full py-3 px-4 rounded-lg text-white font-medium transition duration-200 ${plan.buttonClass}`}>
-                    {plan.buttonText}
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* FAQ Section */}
-            <div className="mt-16 bg-white rounded-lg shadow-md p-8">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="font-semibold text-gray-800 mb-2">Can I use generated images commercially?</h4>
-                  <p className="text-gray-600">Pro and Enterprise plans include commercial usage rights. Free plan is for personal use only.</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800 mb-2">What image formats are supported?</h4>
-                  <p className="text-gray-600">All images are generated in high-quality PNG format, perfect for any use case.</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800 mb-2">Is there a mobile app?</h4>
-                  <p className="text-gray-600">Our web app is fully responsive and works great on mobile. Native apps coming soon!</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800 mb-2">How do I cancel my subscription?</h4>
-                  <p className="text-gray-600">You can cancel anytime from your account settings. No questions asked, no hidden fees.</p>
                 </div>
               </div>
             </div>
